@@ -48,7 +48,7 @@
   <body>
 
 	<?php
-      require_once("navBar.php");
+      require_once("vistas/navBar.php");
     ?>
 
 
