@@ -25,7 +25,7 @@
 
     <div class="container" style="margin-top:100px;">
 
-      <form class="form-signin">
+      <form class="form-signin" action="administrador" method="post">
         <h2 class="form-signin-heading">Ingresar</h2>
         <label for="inputEmail" class="sr-only">Nombre</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Nombre" required="" autofocus="" style="width:400px;" align="center">
@@ -37,9 +37,11 @@
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" style="width:400px; bgcolor:#FFFFF;">Ingresar</button>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" style="width:400px;">Registrarme</button>
+       
       </form>
-
+       <form class="form-signin" action="registrarse" method="post">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" style="width:400px;" >Registrarme</button>
+      </form>
     </div>
   </body>
 </html>

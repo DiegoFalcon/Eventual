@@ -1,1 +1,0 @@
-<a href="otracosa.php">hola mundo</a>
