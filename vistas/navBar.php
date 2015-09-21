@@ -21,14 +21,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Event Manager</a>
+          <a class="navbar-brand" href="#">Eventual</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
         
         <form class="navbar-form navbar-right" role="form" action="Registrarse.php" method="post">
         <button type="submit" class="linkButton">Registrarse</button>
         </form>
-          <form class="navbar-form navbar-right" role="form" action="../controladores/validarUsuario.php" method="post">
+          <form class="navbar-form navbar-right" role="form" action="controladores/validarUsuario.php" method="post">
             <div class="form-group">
               <input type="text" id="usuario" name="usuario" placeholder="Usuario" class="form-control">
             </div>
@@ -52,7 +52,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Event Manager</a>
+          <a class="navbar-brand" href="#">Eventual</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
     
@@ -63,9 +63,9 @@
           </form>
       <form class="navbar-form navbar-right" role="form" action="view/EventManagement.php" method="post">
        
-            <button id="eventmanager" type="submit"class="btn btn-primary">Event Management</button>
+            <button id="eventmanager" type="submit"class="btn btn-primary">Eventual</button>
           </form>
-          <h3 style="color:white;" align="center">Welcome '.$_COOKIE["username"].'!</h3>
+          <h3 style="color:white;" align="center">Welcome '.$_COOKIE["usuario"].'!</h3>
         </div><!--/.navbar-collapse -->
         
       </div>

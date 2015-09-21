@@ -7,7 +7,7 @@
 
 include_once('claseLogin.php');
 
-$user = $_POST['username'];
+$user = $_POST['usuario'];
 $pass = $_POST['password'];
 
 $login=new Login();

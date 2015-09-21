@@ -1,7 +1,7 @@
 <?php
-require_once("connection.php");
+require_once("../modelos/connection.php");
 
-class Modelo{
+class Model{
 	public function login($user,$pass){
 	$conn=new Connection();
 	$query="";

@@ -19,7 +19,7 @@
        
             <button id="eventmanager" type="submit"class="btn btn-primary">Event Management</button>
           </form>
-          <h3 style="color:white;" align="center">Welcome '.$_COOKIE["username"].'!</h3>
+          <h3 style="color:white;" align="center">Welcome '.$_COOKIE["usuario"].'!</h3>
         </div><!--/.navbar-collapse -->
         
       </div>

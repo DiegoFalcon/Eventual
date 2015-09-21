@@ -4,18 +4,20 @@ class Connection{
 	public function EjecutaQuery($query)
 	{
 		//set server access variables
-		$host="127.0.0.1";
-		$user = "root";
-		$pass = "";
-		$db="eventual";
+
+		$host="localhost";
+$port=3306;
+$socket="";
+$user="root";
+$password="";
+$dbname="eventual";
+
+$con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+	or die ('Could not connect to the database server' . mysqli_connect_error());
 		
-		//open connection
+		$result = mysqli_query($con,$query);
 		
-		$connection = mysqli_connect($host,$user,$pass,$db) or die ("Unable to connect!");
-		
-		$result = mysqli_query($connection,$query);
-		
-		mysqli_close($connection);
+		mysqli_close($con);
 		
 		return $result;	
 		
