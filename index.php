@@ -32,8 +32,6 @@
       require_once("vistas/navBar.php");
     ?>
 
-
-
    <img src="eventual.png" class="centerLogo">
 
 
