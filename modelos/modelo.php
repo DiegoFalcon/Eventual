@@ -2,6 +2,8 @@
 require_once("../modelos/connection.php");
 
 class Model{
+
+	//------FUNCION PARA LOGIN----
 	public function login($user,$pass){
 	$conn=new Connection();
 	$query="";
@@ -16,7 +18,7 @@ class Model{
 			$array_usuario["id"] = $row[0];
 			$array_usuario["usuario"] = $row[1];
 			$array_usuario["password"] = $row[2];
-			$array_usuario["institucion"] = $row[2];
+			$array_usuario["institucion"] = $row[3];
 
 			}
 		}
@@ -28,8 +30,18 @@ class Model{
 		
 		return $array_usuario;
 	}
+	//------FUNCIONES PARA EVENTOS----
+	public function eventosSucediendo(){
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
 	
-	public function nuevoEvento($Nombre,$FechaHora,$Descripcion,$CategoriasID)
+		$query="select * from eventos";
+		$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function insertarEvento($Nombre,$FechaHoraInicial,$FechaHoraFinal,$Descripcion,$CategoriasID,$imagennombre)
 	{
 	//Conexion a la base de datos
 	$conn=new Connection();
@@ -37,14 +49,14 @@ class Model{
 	$result=NULL;
 	
 	//creamos el query
-	$query= "insert into eventos  (Nombre,FechaHora,Descripcion,CategoriasID) VALUES ('".$Nombre."','".$FechaHora."','".$Descripcion."','".$CategoriasID."')";
+	$query= "insert into eventos  (Nombre,FechaHoraInicial,FechaHoraFinal,Descripcion,CategoriasID,Imagen) VALUES ('".$Nombre."','".$FechaHoraInicial."','".$FechaHoraFinal."','".$Descripcion."','".$CategoriasID."','".$imagennombre."')";
 	
 	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
 	$result=$conn->EjecutaQuery($query);
 	
 	return $result;
 	}
-	public function Eventos()
+	public function todosLosEventos()
 	{
 		$conn=new Connection();
 	$query="";
@@ -86,7 +98,9 @@ class Model{
 	return $result;	
 	}
 	
-	public function nuevaCategoria($Nombre,$imagenruta)
+
+	//------FUNCIONES PARA CATEGORIAS----
+	public function insertarCategoria($nombre,$imagenruta,$usuarioid)
 	{
 	//Conexion a la base de datos
 	$conn=new Connection();
@@ -94,15 +108,30 @@ class Model{
 	$result=NULL;
 	
 	//creamos el query
-	$query= "insert into categorias  (Nombre,Imagen) VALUES ('".$Nombre."','".$imagenruta."')";
+	$query= "insert into categorias  (Nombre,Imagen,UsuariosID) VALUES ('".$nombre."','".$imagenruta."','".$usuarioid."')";
 	
 	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
 	$result=$conn->EjecutaQuery($query);
 	
 	return $result;
 	}
+	public function insertarUsuario($usuario,$password,$institucion)
+	{
+	//Conexion a la base de datos
+	$conn=new Connection();
+	$query="";
+	$result=NULL;
 	
-	public function Categorias()
+	//creamos el query
+	$query= "INSERT INTO usuarios  (Usuario,Password,Institucion) VALUES ('".$usuario."','".$password."','".$institucion."')";
+	
+	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
+	$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+
+	public function getCategorias()
 	{
 		$conn=new Connection();
 	$query="";
@@ -113,7 +142,17 @@ class Model{
 	
 	return $result;
 	}
-
+	public function getCategorias_X_UsuarioID($usuarioID)
+	{
+		$conn=new Connection();
+	$query="";
+	$result=NULL;
+	
+	$query="SELECT * FROM categorias WHERE UsuariosID ='$usuarioID'";
+	$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
 public function eliminarCategoria($CategoriasID)
 	{
 		$conn=new Connection();

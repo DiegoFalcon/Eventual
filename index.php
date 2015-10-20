@@ -63,8 +63,9 @@
       <div class="carousel-inner" role="listbox">
         <div class="item active">
           <div class="banner" align="center">
-            <img src="http://www.mxl.cetys.mx/imagenes_vocetys/Mexicali/17-4-15/sarao.jpg" alt="First slide" width="100%" height="500px" align="center">
-          </div>          
+            <img src="http://luzytextura.com/public/images/portfolio21bglogo-eventos-luzytextura.L01.jpg" alt="First slide" width="100%" height="500px" align="center">
+          </div>   
+
           <div class="container">
             <div class="carousel-caption">
               <!--<h1>Play your favorite music.</h1>
@@ -73,7 +74,9 @@
             </div>
           </div>
         </div>
+        
       </div>
+
     </div><!-- /.carousel -->
 
 

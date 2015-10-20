@@ -10,6 +10,10 @@
   background-color:#0066ff;
 }
 </style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
 <nav class="navbar navbar-default navbar-fixed-top">
   <?php if (!isset($_COOKIE["usuario"])){
     echo '
@@ -25,7 +29,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
         
-        <form class="navbar-form navbar-right" role="form" action="Registrarse.php" method="post">
+        <form class="navbar-form navbar-right" role="form" action="vistas/Registrarse.php" method="post">
         <button type="submit" class="linkButton">Registrarse</button>
         </form>
           <form class="navbar-form navbar-right" role="form" action="controladores/validarUsuario.php" method="post">
@@ -44,31 +48,47 @@
   }
   else
   {
-   echo ' <div class="ccontainer-fluid" id="navbarcontainer">
-       <div class="navbar-header" id="navbarheader">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Eventual</a>
+   echo '
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Eventual</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-    
-    <form class="navbar-form navbar-right" role="form" action="controller/LogoutController.php" method="post"><button type="submit" class="btn btn-primary">Log out</button></form>
-          <form class="navbar-form navbar-right" role="form" action="controller/ModifyUserbyuserController.php" method="post">
-       
-            <button id="myaccount" type="submit"class="btn btn-primary">My account</button>
-          </form>
-      <form class="navbar-form navbar-right" role="form" action="view/EventManagement.php" method="post">
-       
-            <button id="eventmanager" type="submit"class="btn btn-primary">Eventual</button>
-          </form>
-          <h3 style="color:white;" align="center">Welcome '.$_COOKIE["usuario"].'!</h3>
-        </div><!--/.navbar-collapse -->
-        
-      </div>
+        <center>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a>
+                    </li>
+                    <li><a href="#">'.$_COOKIE["institucion"].'</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="vistas/agregarCategorias.php">Crear Categoria</a>
+                            </li>
+                            <li><a href="vistas/administrarCategorias.php">Administrar Categorias</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="vistas/agregarEventos.php">Crear Evento</a>
+                            </li>
+                              <li><a href="vistas/administrarEventos.php">Administrar Eventos</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="controladores/Logout.php">Log out</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+              
+            </div>
+
+        </center>
+           
+    </div>
   ';
   }
   ?>

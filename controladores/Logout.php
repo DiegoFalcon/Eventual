@@ -5,26 +5,23 @@
 "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 <?php
 
-include_once('claseLogin.php');
-
-$user = $_POST['usuario'];
-$pass = $_POST['password'];
-
-$login=new Login();
-
-$bandera = $login->login($user,$pass);
-
-
-
-if($bandera==1){
-echo '<div align="center">
+if (isset($_COOKIE['usuario'])) {
+            unset($_COOKIE['usuarioid']);
+            unset($_COOKIE['usuario']);
+            unset($_COOKIE['password']);
+             unset($_COOKIE['institucion']);
+              setcookie('usuarioid', null, -1, '/');
+            setcookie('usuario', null, -1, '/');
+            setcookie('password', null, -1, '/');
+            
+			
+			echo '<div align="center">
 <META HTTP-EQUIV="refresh" content="1; URL=../index.php"/>
   <img src="../vistas/imagenes/loaderGif.gif" style="width:128px;height:128px;"></div>';
 }
-
-if($bandera==0){
-echo '<div align="center">
+         else {
+         echo '<div align="center">
 <META HTTP-EQUIV="refresh" content="1; URL=../index.php"/>
   <img src="../vistas/imagenes/loaderGif.gif" style="width:128px;height:128px;"></div>';
-}
+        }
 ?>

@@ -12,56 +12,48 @@
 </head>
 
 <body>
-
-<form action="../controller/RegisterController.php" method="post">
-<div class="container" align="center">
-<div class="blog-header">
-        <h1 class="blog-title">Register Now</h1>
-        <p class="lead blog-description">Input your personal information to participate in the event.</p>
-      </div>
   
-<div class="input-group" style="margin:50px;">
-  <span class="input-group-addon" style="width:50px; height:15px;">User name</span>
-  <input type="text" class="form-control" placeholder="..." name="username">
-</div>
-<div class="input-group" style="margin:50px;">
-  <span class="input-group-addon" style="width:50px; height:15px;">Password</span>
-  <input type="password" class="form-control" placeholder="..." name="password">
-</div>
-<div class="input-group" style="margin:50px;">
- <span class="input-group-addon">Real name</span>
-  <input type="text" class="form-control" placeholder="..." name="name">
-  <span class="input-group-addon">Last name</span>
-  <input type="text" class="form-control" placeholder="..." name="lastname">
-</div>
-<div class="input-group" style="margin:50px;">
- <span class="input-group-addon">Phone number</span>
-  <input type="text" class="form-control" placeholder="..." name="phonenumber">
-  <span class="input-group-addon">Address</span>
-  <input type="text" class="form-control" placeholder="..." name="address">
-</div>
-<div class="input-group" style="margin:50px;">
- <span class="input-group-addon">E-mail</span>
-  <input type="text" class="form-control" placeholder="..." name="email">
-</div>
-<div class="input-group" style="margin:50px;">
-<h3> Select your T-shirt Size</h3><br>
-
-  <input type="radio" name="tshirt" value="S">Small
-<input type="radio" name="tshirt" value="M">Median
-<input type="radio" name="tshirt" value="L">Large
-<input type="radio" name="tshirt" value="XL">Extra Large
-</div>
-<div class="input-group" style="margin:50px;">
-<button type="submit" class="btn btn-primary">Register now</button>
-</div>
-
-</form>
-<footer>
-        <p>&copy; Event Manager <a href="http://localhost:8080/EventManager">Dia del ICC</a>, by <a href="https://facebook.com/DiiegoFalcon">Diego Falcon</a>.</p>
+  <div class="container" align="center">
+  <div class="blog-header">
+        <h1 class="blog-title">Registrate!</h1>
+        <p class="lead blog-description">Empieza a compartir los eventos de tu institución, ingresa la información.</p>
+      </div>
+<div class="row" style="width:800px;">
+  <div class="span4_offset4">
+    <div class="well">
+<form class="form-horizontal" role="form" action="../controladores/registroControlador.php" method="post">
+   <div class="form-group" style="width:700px;">
+      <label for="usuario" class="col-sm-2 control-label">Usuario</label>
+      <div class="col-sm-10" >
+         <input type="text" class="form-control" id="usuario" name="usuario"
+            placeholder="Ingresa tu usuario" >
+      </div>
+   </div>
+   <div class="form-group" style="width:700px;">
+      <label for="password" class="col-sm-2 control-label">Contraseña</label>
+      <div class="col-sm-10">
+         <input type="password" class="form-control" id="password" name="password"
+            placeholder="Ingresa tu contraseña">
+      </div>
+   </div>
+   <div class="form-group" style="width:700px;">
+      <label for="institucion" class="col-sm-2 control-label">Institucion</label>
+      <div class="col-sm-10">
+         <input type="text" class="form-control" id="institucion" name="institucion"
+            placeholder="Ingresa el nombre de tu institución">
+      </div>
+      <div class="form-group" style="margin:50px;" align="right">
+      <button type="submit" class="btn btn-success">Register now</button>
+      </div>
+   </div>
+  </div>
+   </div>
+    </div>
+  </div>
+    <footer align="center">
+        <p>&copy;<a href="http://localhost/Eventual">Eventual</a>, por <a href="https://facebook.com/DiiegoFalcon">Diego Falcon</a> y <a href="https://facebook.com/darkomcfly">Jesus Zavala</a> .</p>
       </footer>
      <!-- /container -->
-</div>
-
+</form>
 </body>
 </html>
