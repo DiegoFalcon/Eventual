@@ -11,12 +11,9 @@
 }
 </style>
 
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-<link rel="stylesheet" href="../style.css">
 <nav class="navbar navbar-default navbar-fixed-top">
   <?php if (!isset($_COOKIE["usuario"])){
     echo '
@@ -71,14 +68,14 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="agregarCategorias.php">Crear Categoria</a>
+                            <li><a href="vistas/agregarCategorias.php">Crear Categoria</a>
                             </li>
-                            <li><a href="agregarEventos.php">Crear Evento</a>
+                            <li><a href="vistas/agregarEventos.php">Crear Evento</a>
                             </li>
-                              <li><a href="Administrador.php">Administrar</a>
+                              <li><a href="vistas/Administrador.php">Administrar</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="../controladores/Logout.php">Log out</a>
+                            <li><a href="controladores/Logout.php">Log out</a>
                             </li>
                         </ul>
                     </li>
@@ -93,3 +90,20 @@
   }
   ?>
     </nav>
+
+<script>
+function validarUsuario()
+  {
+    $.ajax({
+      type: "POST",
+      url: "http://appeventual.com/admin/controladores/validarUsuario.php",
+      dataType: "json", 
+      success: function(response){
+        window.location.href = response.authorizeUrl;
+      },
+      failure: function (response) {
+        alert(response.d);
+      }
+    });
+  }
+</script>

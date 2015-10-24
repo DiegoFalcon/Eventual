@@ -1,18 +1,23 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href=
-"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 <?php
 
 require_once ("../modelos/modelo.php");
-include_once('claseLogin.php');
+include_once("claseLogin.php");
+include_once("claseInstitucion.php");
 
-$model = new Model(); // pedir usar el modelo
+$target_path="../vistas/imagenes/";
 
-$int_count=0;
+$target_path=$target_path.basename($_FILES['uploadedfile']['name']);
 
-$model->insertarUsuario($_POST['usuario'],$_POST['password'],$_POST['institucion'],0); //usar la funcion designada
+if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false)
+	echo "There was an error uploading the file, please try again.";
+
+$institucion = new Institucion(); // pedir usar el modelo
+
+$institucion->insertarInstitucion($_POST['usuario'],$_POST['password'],$_POST['institucion'],$_FILES['uploadedfile']['name']); //usar la funcion designada
 
 $user = $_POST['usuario'];
 $pass = $_POST['password'];

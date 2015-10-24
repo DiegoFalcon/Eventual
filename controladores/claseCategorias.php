@@ -2,12 +2,15 @@
 	require_once ("../modelos/modelo.php");
 
 	class Categorias{
-		
+		public $model;  
+		public function __construct()    
+         {    
+              $this->model = new Model();  
+         }  
 		public function getCategorias(){
-			$model = new Model(); // pedir usar el modelo
 			$int_count=0;
 
-			$result=$model->getCategorias(); //usar la funcion designada
+			$result=$this->model->getCategorias(); //usar la funcion designada
 
 			//extraer los datos de la bd
 			while ($row = mysqli_fetch_row($result)){
@@ -18,11 +21,21 @@
 			}
 			return $array_categorias;
 		}
+		public function getCategoriasJSON(){
+			$result=$this->model->getCategorias(); //usar la funcion designada
+	  		$encode = array();
+
+	  		while($row = mysqli_fetch_assoc($result)) {
+	    	 $encode[] = $row;
+	  		}
+
+	  		echo json_encode($encode); 
+		}
 		public function getCategorias_X_UsuarioID($UsuarioID){
 			$model = new Model(); // pedir usar el modelo
 			$int_count=0;
 
-			$result=$model->getCategorias_X_UsuarioID($UsuarioID); //usar la funcion designada
+			$result=$this->model->getCategorias_X_UsuarioID($UsuarioID); //usar la funcion designada
 
 			//extraer los datos de la bd
 			while ($row = mysqli_fetch_row($result)){
@@ -39,7 +52,7 @@
 		}
 		public function insertarCategoria($nombre,$imagenruta,$usuarioid){
 			try {
-				$model = new Model(); // pedir usar el modelo
+				$this->model = new Model(); // pedir usar el modelo
 				$model->insertarCategoria($nombre,$imagenruta,$usuarioid);
 					$mensaje = "Se inserto la categoria ".$nombre." con exito.";
 					 echo '<div align="center">

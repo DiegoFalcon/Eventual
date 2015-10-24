@@ -14,8 +14,6 @@ $login=new Login();
 
 $bandera = $login->login($user,$pass);
 
-
-
 if($bandera==1){
 echo '<div align="center">
 <META HTTP-EQUIV="refresh" content="1; URL=../index.php"/>

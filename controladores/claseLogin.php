@@ -14,10 +14,11 @@ class Login{
 	if(($array_usuario["usuario"]==$user) && ($array_usuario["password"]==$pass))
 	{
 		$bandera=1;
-		setcookie("usuarioid",$array_usuario["id"],time()+3600,"/","");
+		setcookie("institucionid",$array_usuario["id"],time()+3600,"/","");
 		setcookie("usuario",$array_usuario["usuario"],time()+3600,"/","");
 		setcookie("password",$array_usuario["password"],time()+3600,"/","");
-		setcookie("institucion",$array_usuario["institucion"],time()+3600,"/","");
+		setcookie("nombre",$array_usuario["nombre"],time()+3600,"/","");
+		setcookie("imagen",$array_usuario["imagen"],time()+3600,"/","");
 	}
 	else{
 	$bandera=0;

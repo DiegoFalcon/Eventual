@@ -15,5 +15,5 @@ if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false
 
 
  $eventos = new Eventos();
- $eventos->insertarEvento($_POST['nombre'],$_POST['fechayhorainicial'],$_POST['fechayhorafinal'],$_POST['descripcion'],$_POST['categoria'],$_FILES['uploadedfile']['name']);
+ $eventos->insertarEvento($_POST['nombre'],$_POST['fechayhorainicial'],$_POST['fechayhorafinal'],$_POST['descripcion'],$_POST['categoria'],$_FILES['uploadedfile']['name'],$_COOKIE['institucionid']);
 ?>

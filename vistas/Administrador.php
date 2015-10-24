@@ -1,12 +1,12 @@
-Administrador.php:
+
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Administrador</title>
-
+<link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
+<link rel="icon"  type="image/png" href="../eventualsimple.png" />
 <!-- Optional theme -->
 <link rel="stylesheet" href=
 "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
@@ -16,70 +16,36 @@ Administrador.php:
 </head>
 
 <body>
-
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"><b>MXLI Snacks - Administracion</b></a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Informacion</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Platillos<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="nuevoPlatillo.php">Agregar</a></li>
-                  <li><a href="../controller/consultaPlatilloControl.php">Consultar</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Bebidas<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="nuevaBebida.php">Agregar</a></li>
-                  <li><a href="../controlador/consultaBebidasControl.php">Consultar</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Galeria<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="nuevaImagen.php">Agregar</a></li>
-                  <li><a href="../controlador/consultaImagenesControl.php">Consultar</a></li>
-                </ul>
-            </li>
-
-            <li><a href="../index.php">Salir</a></li>
-          </ul>
-         
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-<div class="jumbotron" style="background-color:#FFFFFF;">
-          <h1 align="center">Menu de Administracion</h1>
-            <div align="center">
-              <p>Modifique la informacion de la pagina, platillos o bebidas.</p>
-          </div>
-    </div>
-
-<div class="container-fluid" style="align:center">
-  <?php
-    require("../controlador/consultaInformacionControl.php");
-
+ <?php
+if (!isset($_COOKIE["usuario"])){echo '<META HTTP-EQUIV="refresh" content="1; URL=../index.php"/>';}
+      require_once("navBar.php");
     ?>
+ <div class="col-xs-6 col-md-4" style="margin-top:100px;">
+    
+        <a href="ListaCategorias.php" class="list-group-item active" style="background:#4DB6AC;"><span class="badge">14</span>Categorias</a>
+        <a href="ListaEventosPasados.php" class="list-group-item" style="color:white;"> <span class="badge">14</span>Eventos pasados</a>
+        <a href="ListaEventosSucediendo.php" class="list-group-item" style="color:white;"> <span class="badge">14</span>Eventos sucediendo</a>
+        <a href="ListaEventosPorOcurrir.php" class="list-group-item" style="color:white; hover-color:black;"> <span class="badge">14</span>Eventos por ocurrir</a>
+        <a href="MiInstitucion.php" class="list-group-item" style="color:white;"> <span class="badge">14</span>Mi institucion</a>
+     
+  </div>
+
+
+<div class="row">
+ 
+  <div class="col-xs-6 col-md-6" >
+    <div style="margin-top:100px; color:white;">
+              <table class="table table-hover">
+               <tr>
+                <td >Nombre Categoria</td>
+                <td >Descripcion</td>
+              </tr>
+              </table>
+            </div>
+  </div>
 </div>
 
-  
-  <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>      
-        <footer>
-    <div class="container">
-    <h3 align="center"> &copy; Eventual</h3>
-    </div>
-    </footer>
+<img src="../eventual.png" class="centerLogo">
+       
 </body>
 </html>

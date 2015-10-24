@@ -1,5 +1,5 @@
 body{
-background:#ffaa00
+background-color:#009688;
 }
 
 img{
@@ -15,12 +15,57 @@ div.centerImageGoogle {
 
 }
 
+a.list-group-item.active{
+  background:#4DB6AC;
+  text-decoration-color:white;
+  width:200px;
+  border:none;
+}
+a.list-group-item.hover{
+  background:white;
+  text-decoration-color:black;
+  color:black;
+  width:200px;
+  border:none;
+}
+
+a.list-group-item.focus{
+  background:#009688;
+  width:200px;
+  text-decoration-color:white;
+  border:none;
+
+}
+a.list-group-item{
+  background:#009688;
+  width:200px;
+  text-decoration-color:white;
+  border:none;
+
+}
 img.center {
   display: block;
     margin: auto;
   position: absolute;
   top: 200; left: 0; bottom: 0; right: 0;
 
+}
+label{
+  color:white;
+}
+p{
+  color:white;
+}
+h1{
+  color:white;
+}
+div.well{
+  background:#4DB6AC;
+}
+
+button.btn.btn-success{
+   background:#009688;
+   border-color:#FFFFFF;
 }
 
 img.centerLogo{

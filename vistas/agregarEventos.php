@@ -22,6 +22,7 @@
         <script src="../vistas/js/popover.js"></script>
         <script src="../vistas/js/transition.js"></script>
          <script src="../vistas/js/collapse.js"></script>
+<link rel="stylesheet" href="../style.css">
 
 </head>
 
@@ -29,7 +30,7 @@
   <?php
    include_once("../controladores/claseCategorias.php");
    $categorias = new Categorias();
-   $array_categorias = $categorias->getCategorias_X_UsuarioID($_COOKIE['usuarioid']);
+   $array_categorias = $categorias->getCategorias();
    ?>
   <div class="container" align="center">
   <div class="blog-header">
@@ -117,16 +118,12 @@
    
 </select>
   <div class="form-group" style="margin:50px;" align="right">
-      <button type="submit" class="btn btn-warning">Agregar evento</button>
+      <button type="submit" class="btn btn-success">Agregar evento</button>
       </div>
   </div>
    </div>
     </div>
   </div>
-    <footer align="center">
-        <p>&copy;<a href="http://localhost/Eventual">Eventual</a>, por <a href="https://facebook.com/DiiegoFalcon">Diego Falcon</a> y <a href="https://facebook.com/darkomcfly">Jesus Zavala</a> .</p>
-      </footer>
-     <!-- /container -->
 </form>
 </body>
 </html>

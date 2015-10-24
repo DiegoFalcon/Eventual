@@ -5,10 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>New user</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="../style.css">
 <!-- Optional theme -->
 <link rel="stylesheet" href=
 "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
 </head>
 
 <body>
@@ -35,17 +36,14 @@
   </div>
 </div>
   <div class="form-group" style="margin:50px;" align="right">
-      <button type="submit" class="btn btn-warning">Agregar categoria</button>
+      <button type="submit" class="btn btn-success">Agregar categoria</button>
       </div>
   </div>
    </div>
     </div>
   </div>
   </form>
-    <footer align="center">
-        <p>&copy;<a href="http://localhost/Eventual">Eventual</a>, por <a href="https://facebook.com/DiiegoFalcon">Diego Falcon</a> y <a href="https://facebook.com/darkomcfly">Jesus Zavala</a> .</p>
-      </footer>
-     <!-- /container -->
+
 
 </body>
 </html>

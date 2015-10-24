@@ -26,12 +26,13 @@
   </head>
 <!-- NAVBAR
 ================================================== -->
-  <body style="background:#ffaa00;">
+  <body style="background-color:#009688;">
 
 	<?php
-      require_once("vistas/navBar.php");
+      require_once("vistas/navBarIndex.php");
     ?>
 
+    
    <img src="eventual.png" class="centerLogo">
 
 

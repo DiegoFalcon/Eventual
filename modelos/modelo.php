@@ -8,7 +8,7 @@ class Model{
 	$conn=new Connection();
 	$query="";
 	$result=NULL;
-	$query = "SELECT * FROM usuarios where Usuario='$user'";	
+	$query = "SELECT * FROM institucion where Usuario='$user'";	
 	
 	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
 		$result=$conn->EjecutaQuery($query);
@@ -18,30 +18,91 @@ class Model{
 			$array_usuario["id"] = $row[0];
 			$array_usuario["usuario"] = $row[1];
 			$array_usuario["password"] = $row[2];
-			$array_usuario["institucion"] = $row[3];
+			$array_usuario["nombre"] = $row[3];
+			$array_usuario["imagen"] = $row[4];
 
 			}
 		}
 		if(!isset($array_usuario)){
 		$array_usuario["usuario"] = -1;
 			$array_usuario["password"] = -1;
-			$array_usuario["institucion"] = -1;
+			$array_usuario["nombre"] = -1;
+			$array_usuario["imagen"] = -1;
 		}
 		
 		return $array_usuario;
 	}
 	//------FUNCIONES PARA EVENTOS----
-	public function eventosSucediendo(){
+	public function eventosPresentes($FechaHoraCliente){
 		$conn=new Connection();
 		$query="";
 		$result=NULL;
-	
-		$query="select * from eventos";
+		$dt = $FechaHoraCliente->format('Y-m-d H:i:s');
+		$query="select eventos.EventosID,eventos.Nombre As NombreEvento,eventos.FechaHoraInicial,eventos.FechaHoraFinal,eventos.Descripcion,eventos.Imagen,categorias.Nombre As NombreCategoria,institucion.Nombre As NombreInstitucion
+			from eventos
+			inner join categorias On categorias.CategoriasID = eventos.CategoriasID
+			inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+			where FechaHoraInicial<='$dt' and FechaHoraFinal>='$dt'";
 		$result=$conn->EjecutaQuery($query);
 	
 	return $result;
 	}
-	public function insertarEvento($Nombre,$FechaHoraInicial,$FechaHoraFinal,$Descripcion,$CategoriasID,$imagennombre)
+	public function eventosPasados($FechaHoraCliente){
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
+		$dt = $FechaHoraCliente->format('Y-m-d H:i:s');
+		$query="select eventos.EventosID,eventos.Nombre As NombreEvento,eventos.FechaHoraInicial,eventos.FechaHoraFinal,eventos.Descripcion,eventos.Imagen,categorias.Nombre As NombreCategoria,institucion.Nombre As NombreInstitucion
+			from eventos
+			inner join categorias On categorias.CategoriasID = eventos.CategoriasID
+			inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+			where FechaHoraInicial<='$dt' and FechaHoraFinal<='$dt'";
+		$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function eventosFuturos($FechaHoraCliente){
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
+		$dt = $FechaHoraCliente->format('Y-m-d H:i:s');
+		$query="select eventos.EventosID,eventos.Nombre As NombreEvento,eventos.FechaHoraInicial,eventos.FechaHoraFinal,eventos.Descripcion,eventos.Imagen,categorias.Nombre As NombreCategoria,institucion.Nombre As NombreInstitucion
+			from eventos
+			inner join categorias On categorias.CategoriasID = eventos.CategoriasID
+			inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+			where FechaHoraInicial>='$dt' and FechaHoraFinal>='$dt'";
+		$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+
+	public function eventos_X_InstitucionID($InstitucionID){
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
+		$query="select eventos.EventosID,eventos.Nombre As NombreEvento,eventos.FechaHoraInicial,eventos.FechaHoraFinal,eventos.Descripcion,eventos.Imagen,categorias.Nombre As NombreCategoria,institucion.Nombre As NombreInstitucion
+			from eventos
+			inner join categorias On categorias.CategoriasID = eventos.CategoriasID
+			inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+			where eventos.InstitucionID=$InstitucionID";
+		$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function eventos_X_CategoriasID($CategoriasID){
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
+		$query="select eventos.EventosID,eventos.Nombre As NombreEvento,eventos.FechaHoraInicial,eventos.FechaHoraFinal,eventos.Descripcion,eventos.Imagen,categorias.Nombre As NombreCategoria,institucion.Nombre As NombreInstitucion
+			from eventos
+			inner join categorias On categorias.CategoriasID = eventos.CategoriasID
+			inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+			where eventos.CategoriasID=$CategoriasID";
+		$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function insertarEvento($Nombre,$FechaHoraInicial,$FechaHoraFinal,$Descripcion,$CategoriasID,$imagennombre,$institucionid)
 	{
 	//Conexion a la base de datos
 	$conn=new Connection();
@@ -49,7 +110,7 @@ class Model{
 	$result=NULL;
 	
 	//creamos el query
-	$query= "insert into eventos  (Nombre,FechaHoraInicial,FechaHoraFinal,Descripcion,CategoriasID,Imagen) VALUES ('".$Nombre."','".$FechaHoraInicial."','".$FechaHoraFinal."','".$Descripcion."','".$CategoriasID."','".$imagennombre."')";
+	$query= "insert into eventos  (Nombre,FechaHoraInicial,FechaHoraFinal,Descripcion,CategoriasID,Imagen,InstitucionID) VALUES ('".$Nombre."','".$FechaHoraInicial."','".$FechaHoraFinal."','".$Descripcion."','".$CategoriasID."','".$imagennombre."','".$institucionid."')";
 	
 	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
 	$result=$conn->EjecutaQuery($query);
@@ -115,7 +176,7 @@ class Model{
 	
 	return $result;
 	}
-	public function insertarUsuario($usuario,$password,$institucion)
+	public function insertarInstitucion($usuario,$password,$institucion,$imagenruta)
 	{
 	//Conexion a la base de datos
 	$conn=new Connection();
@@ -123,14 +184,24 @@ class Model{
 	$result=NULL;
 	
 	//creamos el query
-	$query= "INSERT INTO usuarios  (Usuario,Password,Institucion) VALUES ('".$usuario."','".$password."','".$institucion."')";
+	$query= "INSERT INTO institucion  (Usuario,Password,Nombre,Imagen) VALUES ('".$usuario."','".$password."','".$institucion."','".$imagenruta."')";
 	
 	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
 	$result=$conn->EjecutaQuery($query);
 	
 	return $result;
 	}
-
+	public function getInstituciones()
+	{
+		$conn=new Connection();
+	$query="";
+	$result=NULL;
+	
+	$query="select * from institucion";
+	$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
 	public function getCategorias()
 	{
 		$conn=new Connection();
@@ -169,75 +240,5 @@ public function eliminarCategoria($CategoriasID)
 	return $result;	
 	}
 	
-
-	public function Informacion()
-	{
-		$conn=new Connection();
-	$query="";
-	$result=NULL;
-	
-	$query="select * from informacion";
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;
-	}
-
-	public function modificarInformacion($quienes,$telefono,$ubicacion,$correo,$horario)
-	{
-		$conn=new Connection();
-	$query="";
-	$result=NULL;
-	
-	//creamos el query
-	$query="UPDATE informacion SET quienesSomos='".$quienes."', telefono='".$telefono."', ubicacion='".$ubicacion."', correo='".$correo."', horario='".$horario."' where idinformacion='1'";
-	
-	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;
-    }
-		
-	public function nuevaImagen($imagennombre,$imagenruta)
-	{
-	//Conexion a la base de datos
-	$conn=new Connection();
-	$query="";
-	$result=NULL;
-	
-	//creamos el query
-	$query= "INSERT INTO imagenes  (imagennombre,imagenruta) VALUES ('".$imagennombre."','".$imagenruta."')";
-	
-	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;
-	}
-	public function Imagenes()
-	{
-		$conn=new Connection();
-	$query="";
-	$result=NULL;
-	
-	$query="select * from imagenes";
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;
-	}
-	
-	public function eliminarImagen($id)
-	{
-		$conn=new Connection();
-	$query="";
-	$result=NULL;
-	
-	//creamos el query
-
-	$query= "DELETE FROM imagenes WHERE id='$id'";
-	
-	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;	
-	}
 	
 }
