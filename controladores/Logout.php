@@ -6,13 +6,16 @@
 <?php
 
 if (isset($_COOKIE['usuario'])) {
-            unset($_COOKIE['usuarioid']);
+            unset($_COOKIE['institucionid']);
             unset($_COOKIE['usuario']);
             unset($_COOKIE['password']);
-             unset($_COOKIE['institucion']);
-              setcookie('usuarioid', null, -1, '/');
+             unset($_COOKIE['nombre']);
+             unset($_COOKIE['imagen']);
+             setcookie('institucionid', null, -1, '/');
             setcookie('usuario', null, -1, '/');
             setcookie('password', null, -1, '/');
+             setcookie('nombre', null, -1, '/');
+              setcookie('imagen', null, -1, '/');
             
 			
 			echo '<div align="center">

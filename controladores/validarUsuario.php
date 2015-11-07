@@ -5,10 +5,11 @@
 "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 <?php
 
-include_once('claseLogin.php');
+require_once('claseLogin.php');
 
 $user = $_POST['usuario'];
 $pass = $_POST['password'];
+
 
 $login=new Login();
 

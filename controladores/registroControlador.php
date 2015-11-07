@@ -27,21 +27,17 @@ $login=new Login();
 
 $bandera = $login->login($user,$pass);
 
-
-
-if($bandera==1){
 //echo"<div align=center><META HTTP-EQUIV='refresh' content='3; URL=../view/Lobby.php'/>//<br>";	
 //echo"Conectando...</div>";
-echo '<div class="alert alert-success" role="alert" align="center">
+if($bandera==1){
+echo '<div align="center">
 <META HTTP-EQUIV="refresh" content="1; URL=../index.php"/>
-  <i class="alert-link">Conectando...</i></div>';
+  <img src="../vistas/imagenes/loaderGif.gif" style="width:128px;height:128px;"></div>';
 }
 
 if($bandera==0){
-/*echo"<div align=center><META HTTP-EQUIV='refresh' content='3; URL=../index.php'/><br>
-<i>Usuario o Contrase&ntilde;a incorrecto.</i></div>";*/
-echo '<div class="alert alert-danger" role="alert" align="center">
+echo '<div align="center">
 <META HTTP-EQUIV="refresh" content="1; URL=../index.php"/>
-  <i class="alert-link">Usuario o Contrase&ntilde;a incorrecto.</i></div>';
+  <img src="../vistas/imagenes/loaderGif.gif" style="width:128px;height:128px;"></div>';
 }
 ?>

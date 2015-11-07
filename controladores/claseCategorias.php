@@ -53,7 +53,7 @@
 		public function insertarCategoria($nombre,$imagenruta,$usuarioid){
 			try {
 				$this->model = new Model(); // pedir usar el modelo
-				$model->insertarCategoria($nombre,$imagenruta,$usuarioid);
+				$this->model->insertarCategoria($nombre,$imagenruta,$usuarioid);
 					$mensaje = "Se inserto la categoria ".$nombre." con exito.";
 					 echo '<div align="center">
 				<META HTTP-EQUIV="refresh" content="1; URL=../index.php"/>
@@ -68,5 +68,4 @@
 				//usar la funcion designada
 		}
 
-	}
 ?>

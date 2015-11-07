@@ -1,0 +1,2 @@
+[24-Oct-2015 20:30:22 UTC] PHP Fatal error:  Class 'Login' not found in /home/appeventual/public_html/admin/controladores/validarUsuario.php on line 21
+[24-Oct-2015 20:38:08 UTC] PHP Fatal error:  Class 'Login' not found in /home/appeventual/public_html/admin/controladores/validarUsuario.php on line 21

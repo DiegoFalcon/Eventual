@@ -13,7 +13,7 @@
 		public function insertarInstitucion($usuario,$password,$nombre,$imagenruta){
 			try {
 				
-				$$this->model->insertarInstitucion($usuario,$password,$nombre,$imagenruta);
+				$this->model->insertarInstitucion($usuario,$password,$nombre,$imagenruta);
 					$mensaje = "Creaste la institucion ".$nombre." con exito.";
 
 					 echo '<div align="center">

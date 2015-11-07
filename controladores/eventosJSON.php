@@ -16,6 +16,14 @@ if (isset($_GET['Filtro']))
 		case "futuros":
 			$eventos->eventosFuturos();
 		break;
+		case "eventoid":
+			if (isset($_GET['FiltroID'])) {
+				$eventos->getEvento_X_EventoID(($_GET['FiltroID']));
+			}
+			else{
+				$eventos->eventosTodos();
+			}
+		break;
 		case "categorias":
 			if (isset($_GET['FiltroID'])) {
 				$eventos->eventos_X_CategoriasID(($_GET['FiltroID']));
@@ -28,6 +36,13 @@ if (isset($_GET['Filtro']))
 		case "instituciones":
 			if (isset($_GET['FiltroID']))  
 				$eventos->eventos_X_InstitucionID(($_GET['FiltroID']));
+			else
+				$eventos->eventosTodos();
+		break;
+
+		case "asistire":
+			if (isset($_GET['FiltroID']))  
+				$eventos->eventos_X_UsuariosID(($_GET['FiltroID']));
 			else
 				$eventos->eventosTodos();
 		break;
