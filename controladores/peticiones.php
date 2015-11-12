@@ -5,6 +5,15 @@ require_once ("claseEventos.php");
 		case "refrescarTodosLosEventos":
 			refrescarTodosLosEventos();
 			break;
+		case "refrescarEventosPresentes":
+			refrescarEventosPresentes();
+		break;
+		case "refrescarEventosPasados":
+			refrescarEventosPasados();
+			break;
+		case "refrescarEventosFuturos":
+			refrescarEventosFuturos();
+			break;		
 		case "getCategorias":
 			getCategorias();
 			break;
@@ -23,12 +32,72 @@ require_once ("claseEventos.php");
 		case "cantidadesEventos":
 			cantidadesEventos();
 		break;
+		case "cantidadesFotosComentarios":
+			cantidadesFotosComentarios();
+		break;
+		case "cargarComentarios_X_EventoID":
+			cargarComentarios_X_EventoID();
+		break;
+		case "cargarFotos_X_EventoID":
+			cargarFotos_X_EventoID();
+		break;
+		case "eliminarComentario":
+			eliminarComentario();
+		break;
+		case "eliminarFoto":
+			eliminarFoto();
+		break;
 	}
 	
 	
 	function refrescarTodosLosEventos(){
 		 $model = new Model(); 
 		$result=$model->eventos_X_InstitucionID($_COOKIE['institucionid']); //usar la funcion designada
+		$encode = array();
+
+		while($row = mysqli_fetch_assoc($result)) {
+			$row["FechaHoraInicial"] = formatearFechaWeb($row["FechaHoraInicial"]);
+			$row["FechaHoraFinal"] = formatearFechaWeb($row["FechaHoraFinal"]);
+		   $encode["Items"][] = $row;
+		}
+
+		echo json_encode($encode); 
+	}
+	function refrescarEventosPresentes(){
+		date_default_timezone_set('America/Los_Angeles');
+		$FechaHora = new DateTime();
+		 $model = new Model(); 
+		$result=$model->eventosPresentes_X_InstitucionID($FechaHora,$_COOKIE['institucionid']); //usar la funcion designada
+		$encode = array();
+
+		while($row = mysqli_fetch_assoc($result)) {
+			$row["FechaHoraInicial"] = formatearFechaWeb($row["FechaHoraInicial"]);
+			$row["FechaHoraFinal"] = formatearFechaWeb($row["FechaHoraFinal"]);
+		   $encode["Items"][] = $row;
+		}
+
+		echo json_encode($encode); 
+	}
+		function refrescarEventosPasados(){
+		date_default_timezone_set('America/Los_Angeles');
+		$FechaHora = new DateTime();
+		 $model = new Model(); 
+		$result=$model->eventosPasados_X_InstitucionID($FechaHora,$_COOKIE['institucionid']); //usar la funcion designada
+		$encode = array();
+
+		while($row = mysqli_fetch_assoc($result)) {
+			$row["FechaHoraInicial"] = formatearFechaWeb($row["FechaHoraInicial"]);
+			$row["FechaHoraFinal"] = formatearFechaWeb($row["FechaHoraFinal"]);
+		   $encode["Items"][] = $row;
+		}
+
+		echo json_encode($encode); 
+	}
+		function refrescarEventosFuturos(){
+		date_default_timezone_set('America/Los_Angeles');
+		$FechaHora = new DateTime();
+		 $model = new Model(); 
+		$result=$model->eventosFuturos_X_InstitucionID($FechaHora,$_COOKIE['institucionid']); //usar la funcion designada
 		$encode = array();
 
 		while($row = mysqli_fetch_assoc($result)) {
@@ -168,6 +237,16 @@ require_once ("claseEventos.php");
 		$resultado = $evento->eliminarEvento($_POST['ID']);
 		echo $resultado;
 	}
+	function eliminarComentario(){
+		$model = new Model();
+		$resultado = $model->eliminarComentario($_POST['ID']);
+		echo $resultado;
+	}
+	function eliminarFoto(){
+		$model = new Model();
+		$resultado = $model->eliminarFoto($_POST['ID']);
+		echo $resultado;
+	}
 	
 	function getEvento(){
 		 $model = new Model(); 
@@ -186,10 +265,45 @@ require_once ("claseEventos.php");
 		 $model = new Model(); 
 		 date_default_timezone_set('America/Los_Angeles');
 		$FechaHora = new DateTime();
-		$result=$model->cantidadesEventos($FechaHora); //usar la funcion designada
+		$result=$model->cantidadesEventos_X_InstitucionID($FechaHora,$_COOKIE['institucionid']); //usar la funcion designada
 		$encode = array();
 
 		while($row = mysqli_fetch_assoc($result)) {
+		   $encode["Items"][] = $row;
+		}
+
+		echo json_encode($encode); 
+	}
+	function cantidadesFotosComentarios(){
+		 $model = new Model(); 
+		$result=$model->cantidadesFotosComentarios($_REQUEST['ID']); //usar la funcion designada
+		$encode = array();
+
+		while($row = mysqli_fetch_assoc($result)) {
+		   $encode["Items"][] = $row;
+		}
+
+		echo json_encode($encode); 
+	}
+	function cargarComentarios_X_EventoID(){
+		 $model = new Model(); 
+		$result=$model->getComentarios($_REQUEST['ID']); //usar la funcion designada
+		$encode = array();
+
+		while($row = mysqli_fetch_assoc($result)) {
+		$row["FechaHora"] = formatearFechaWeb($row["FechaHora"]);
+		   $encode["Items"][] = $row;
+		}
+
+		echo json_encode($encode); 
+	}
+	function cargarFotos_X_EventoID(){
+		 $model = new Model(); 
+		$result=$model->getFotos($_REQUEST['ID']); //usar la funcion designada
+		$encode = array();
+
+		while($row = mysqli_fetch_assoc($result)) {
+		$row["FechaHora"] = formatearFechaWeb($row["FechaHora"]);
 		   $encode["Items"][] = $row;
 		}
 

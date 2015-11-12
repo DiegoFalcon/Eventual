@@ -15,6 +15,7 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../style.css">
 <script>
 function validarUsuario(){
         var user = $("#usuario").val();
@@ -94,9 +95,7 @@ function validarUsuario(){
                             </li>
                             <li><a href="vistas/agregarEventos.php">Crear Evento</a>
                             </li>
-                              <li><a href="vistas/Administrador.php">Administrar</a>
-                            </li>
-                             <li><a href="vistas/AdministradorPrueba.php">Administrar</a>
+                              <li><a href="vistas/Administrador.php">Administrar Evento</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="controladores/Logout.php">Log out</a>

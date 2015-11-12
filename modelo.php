@@ -248,47 +248,10 @@ class Model{
 	$conn=new Connection();
 	$query="";
 	$result=NULL;
-	$query = "SELECT (SELECT COUNT(*) From eventos) As Todos,
-	(SELECT COUNT(*) From eventos where FechaHoraInicial<='$dt' and FechaHoraFinal>='$dt') As Presentes,
-	(SELECT COUNT(*) From eventos where FechaHoraInicial<='$dt' and FechaHoraFinal<='$dt') As Pasados,
-	(SELECT COUNT(*) From eventos where FechaHoraInicial>='$dt' and FechaHoraFinal>='$dt') As Futuros";
-	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;
-	}
-	public function cantidadesEventos_X_InstitucionID($FechaHoraCliente,$institucionid)
-	{
-	//Conexion a la base de datos
-	$dt = $FechaHoraCliente->format('Y-m-d H:i:s');
-	$conn=new Connection();
-	$query="";
-	$result=NULL;
-	$query = "SELECT (SELECT COUNT(*) From eventos where InstitucionID = '$institucionid') As Todos,
-	(SELECT COUNT(*) From eventos where FechaHoraInicial<='$dt' and FechaHoraFinal>='$dt' and InstitucionID = '$institucionid') As Presentes,
-	(SELECT COUNT(*) From eventos where FechaHoraInicial<='$dt' and FechaHoraFinal<='$dt' and InstitucionID = '$institucionid') As Pasados,
-	(SELECT COUNT(*) From eventos where FechaHoraInicial>='$dt' and FechaHoraFinal>='$dt' and InstitucionID = '$institucionid') As Futuros";
-	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;
-	}
-	public function cantidadesFotosComentarios($EventosID)
-	{
-	//Conexion a la base de datos
-	$conn=new Connection();
-	$query="";
-	$result=NULL;
-	$query = "SELECT
-		(SELECT COUNT(*)
-		From asistenciasfotos
-		inner join asistencias on asistencias.AsistenciasID = asistenciasfotos.AsistenciasID
-		inner join eventos on eventos.EventosID = asistencias.EventosID
-		where asistencias.EventosID = $EventosID) As Fotos,
-	(SELECT COUNT(*) From asistenciascomentarios
-		inner join asistencias on asistencias.AsistenciasID = asistenciascomentarios.AsistenciasID
-		inner join eventos on eventos.EventosID = asistencias.EventosID
-		where asistencias.EventosID = $EventosID) As Comentarios";
+	$query = "SELECT (SELECT COUNT(*) From Eventos) As Todos,
+	(SELECT COUNT(*) From Eventos where FechaHoraInicial<='$dt' and FechaHoraFinal>='$dt') As Presentes,
+	(SELECT COUNT(*) From Eventos where FechaHoraInicial<='$dt' and FechaHoraFinal<='$dt') As Pasados,
+	(SELECT COUNT(*) From Eventos where FechaHoraInicial>='$dt' and FechaHoraFinal>='$dt') As Futuros";
 	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
 	$result=$conn->EjecutaQuery($query);
 	
@@ -566,18 +529,6 @@ public function eliminarCategoria($CategoriasID)
 
 		return $result;
 	}
-	public function eliminarComentario($asistenciascomentariosid)
-	{
-	//Conexion a la base de datos
-	$conn=new Connection();
-	$query="";
-	$result=NULL;
-	$query = "DELETE FROM asistenciascomentarios WHERE AsistenciasComentariosID = $asistenciascomentariosid";
-	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;
-	}
 
 	public function insertarFoto($AsistenciasID, $Imagen)
 	{
@@ -597,18 +548,7 @@ public function eliminarCategoria($CategoriasID)
 
 		return $result;
 	}
-	public function eliminarFoto($asistenciasfotosid)
-	{
-	//Conexion a la base de datos
-	$conn=new Connection();
-	$query="";
-	$result=NULL;
-	$query = "DELETE FROM asistenciasfotos WHERE AsistenciasFotosID = $asistenciasfotosid";
-	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
-	$result=$conn->EjecutaQuery($query);
-	
-	return $result;
-	}
+
 	public function getFotos($EventosID)
 	{
 	//Conexion a la base de datos

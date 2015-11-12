@@ -90,11 +90,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="../vistas/agregarCategorias.php">Crear Categoria</a>
                             </li>
-                            <li><a href="../vistas/agregarEventos.php">Crear Evento</a>
-                            </li>
-                              <li><a href="../vistas/Administrador.php">Administrar</a>
-                            </li>
-                             <li><a href="../vistas/AdministradorPrueba.php">Administrar</a>
+                              <li><a href="../vistas/Administrador.php">Administrar Eventos</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="../controladores/Logout.php">Log out</a>

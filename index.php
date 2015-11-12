@@ -12,7 +12,7 @@
   <link rel="icon"  type="image/png" href="eventualsimple.png" />
 
 
-<link rel="stylesheet" type="text/css" href="style.css">
+
     <!-- Bootstrap core CSS -->
     <!--<link href="dist/css/bootstrap.min.css" rel="stylesheet">-->
 <!-- Latest compiled and minified CSS -->
@@ -22,11 +22,17 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+<style>
+.Body{
+background-color: #2196F3;
 
+}
+</style>
   </head>
 <!-- NAVBAR
 ================================================== -->
-  <body style="background-color:#009688;">
+  <body class="Body">
 
 	<?php
       require_once("vistas/navBarIndex.php");
