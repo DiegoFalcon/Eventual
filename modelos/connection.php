@@ -9,7 +9,7 @@ class Connection{
 $port=3306;
 $socket="";
 $user="root";
-$password="falcon12";
+$password="root";
 $dbname="eventual";
 
 $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
