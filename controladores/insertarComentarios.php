@@ -6,7 +6,11 @@
 	{
 		$AsistenciasID = $_POST['AsistenciasID'];
 		$Comentario = $_POST["Comentario"];
-		$comentarios->insertarComentarioJSON($AsistenciasID,$Comentario);
+		$resultado = $comentarios->insertarComentarioJSON($AsistenciasID,$Comentario);
+		echo $resultado;
+    }
+    else{
+    	echo "nada pasa";
     }
 
 ?>

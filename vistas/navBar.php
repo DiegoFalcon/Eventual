@@ -83,14 +83,16 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a>
                     </li>
-                    <li><a href="#">'.$_COOKIE["nombre"].'</a>
+                    <li><a href="../vistas/MiInstitucion.php">'.$_COOKIE["nombre"].'</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="../vistas/agregarCategorias.php">Crear Categoria</a>
+                           <li><a href="../vistas/Administrador.php">Mis Eventos</a>
                             </li>
-                              <li><a href="../vistas/Administrador.php">Administrar Eventos</a>
+                            <li><a href="../vistas/agregarCategorias.php">Crear Categoria</a>
+                            </li>                    
+                              <li><a href="../vistas/MiInstitucion.php">Mis Institucion</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="../controladores/Logout.php">Log out</a>

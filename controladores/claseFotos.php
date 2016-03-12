@@ -32,6 +32,15 @@
 
 	  		echo json_encode($encode); 
 		}
+		public function Consecutivo(){
+		$result=$this->model->ConsecutivoFotos(); //usar la funcion designada
+  		$encode = array();
+  		while($row = mysqli_fetch_assoc($result)) {
+    	 $encode[] = $row;
+  		}
+
+  		return json_encode($encode); 
+		}
 		function formatearFecha($fechaComentario){
 		date_default_timezone_set('America/Los_Angeles');
 		//$dw = date('N jS \of F Y h:i:s A');
@@ -71,8 +80,8 @@
 			return $diferenciaString;
 		}
 
-		$diaPasado = date('N', strtotime($fechaPasada));
-		$diaActual = date('N', strtotime($fechaActual));
+		$diaPasado = date('j', strtotime($fechaPasada));
+		$diaActual = date('j', strtotime($fechaActual));
 		$diferencia = $this->diferencia($diaPasado,$diaActual);
 		if($diferencia!=0){
 			if($diferencia > 1)

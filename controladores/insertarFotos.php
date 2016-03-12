@@ -19,7 +19,13 @@
         	$randomString .= $characters[rand(0, $charactersLength - 1)];
     	}
 
-		$nombreImagen= $AsistenciasID.'_'.$randomString.".jpeg";
+        //obtener el consecutivo de las asistencias fotos
+        $result = $fotos->Consecutivo();
+        $jsondecode = json_decode($result,true);
+        $consecutivoid = $jsondecode[0]["Consecutivo"];
+        $consecutivoid++;
+
+		$nombreImagen= "ASFTO".$consecutivoid.'_'.$randomString.".jpeg";
 		$target_path=$target_path.$nombreImagen;
 		
     	$file = fopen($target_path, 'wb');

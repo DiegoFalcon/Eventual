@@ -192,7 +192,7 @@ class Eventos{
 		// g = formato de horas sin ceros iniciales
 		// Y = año
 		// i = minutos
-		$dia = date('N', strtotime($fecha));
+		$dia = date('d', strtotime($fecha));
 		$mes = date('n', strtotime($fecha));
 		$ano = date('Y', strtotime($fecha));
 		$formatofecha = $this->formatoFecha($dia, $mes, $ano);
@@ -248,6 +248,15 @@ class Eventos{
 		}
 		$formato = $dia." de ".$mesString." del ".$ano;
 		return $formato;
+	}
+	public function Consecutivo(){
+		$result=$this->model->ConsecutivoEventos(); //usar la funcion designada
+  		$encode = array();
+  		while($row = mysqli_fetch_assoc($result)) {
+    	 $encode[] = $row;
+  		}
+
+  		return json_encode($encode); 
 	}
 
 }

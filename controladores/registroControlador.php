@@ -8,16 +8,23 @@ require_once ("../modelos/modelo.php");
 include_once("claseLogin.php");
 include_once("claseInstitucion.php");
 
-$target_path="../vistas/imagenes/";
-
-$target_path=$target_path.basename($_FILES['uploadedfile']['name']);
-
-if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false)
-	echo "There was an error uploading the file, please try again.";
-
 $institucion = new Institucion(); // pedir usar el modelo
+	$target_path="../vistas/imagenes/";
 
-$institucion->insertarInstitucion($_POST['usuario'],$_POST['password'],$_POST['institucion'],$_FILES['uploadedfile']['name']); //usar la funcion designada
+	$result = $institucion->Consecutivo();
+	$jsondecode = json_decode($result,true);
+	$consecutivoid = $jsondecode[0]["Consecutivo"];
+	$consecutivoid++;
+	$RandomString = $institucion->generateRandomString(5);
+	$nombreImagen= "INST".$consecutivoid."_".$RandomString.".jpg";
+	$target_path=$target_path.$nombreImagen;
+
+	if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false)
+		echo "There was an error uploading the file, please try again.";
+
+
+
+$institucion->insertarInstitucion($_POST['usuario'],$_POST['password'],$_POST['institucion'],$nombreImagen); //usar la funcion designada
 
 $user = $_POST['usuario'];
 $pass = $_POST['password'];

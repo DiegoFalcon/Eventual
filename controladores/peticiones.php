@@ -1,5 +1,6 @@
 <?php
 require_once ("claseEventos.php");
+require_once ("claseInstitucion.php");
 	$accion = $_REQUEST['accion'];
 	switch($accion){
 		case "refrescarTodosLosEventos":
@@ -46,6 +47,12 @@ require_once ("claseEventos.php");
 		break;
 		case "eliminarFoto":
 			eliminarFoto();
+		break;
+		case "getInstitucion":
+			getInstitucion();
+		break;
+		case "editarInstitucion":
+			editarInstitucion();
 		break;
 	}
 	
@@ -192,19 +199,27 @@ require_once ("claseEventos.php");
 		echo json_encode($encode); 
 
 	}
-	
-	function nuevoEvento(){
 
+	function ConsecutivoEventos(){
+	$eventos = new Eventos();
+	$result = $eventos->Consecutivo();
+	$jsondecode = json_decode($result,true);
+	$consecutivoid = $jsondecode[0]["Consecutivo"];
+	$consecutivoid++;
+	return $consecutivoid;
+	}
+	function nuevoEvento(){
+	$eventos = new Eventos();
 	$target_path="../vistas/imagenes/";
-	//$_FILES['uploadedfile']['name']
-	$nombreImagen= $_POST['nombre']._.generateRandomString(5).".jpg";
+
+	$nombreImagen= "EVNT".ConsecutivoEventos()."_".generateRandomString(5).".jpg";
 	$target_path=$target_path.$nombreImagen;
 
 	if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false)
 		echo "There was an error uploading the file, please try again.";
 
 
-	 $eventos = new Eventos();
+	 
 	 $resultado = $eventos->insertarEvento($_POST['nombre'],$_POST['fechayhorainicial'],$_POST['fechayhorafinal'],$_POST['descripcion'],$_POST['categoriaid'],$nombreImagen,$_COOKIE['institucionid']);
 	 echo $resultado;
 	}
@@ -212,8 +227,14 @@ require_once ("claseEventos.php");
 		$target_path="../vistas/imagenes/";
 		//$_FILES['uploadedfile']['name']
 		$nombreImagen = "";
+		$model = new Model();
+		$resultadoEliminar = $model->getEvento_X_EventoID($_POST['eventoid']);
+
+		while($row = mysqli_fetch_assoc($resultadoEliminar)) {
+			unlink("../vistas/imagenes/".$row["Imagen"]);
+		}
 		if(basename($_FILES['uploadedfile']['name']) != ""){
-		$nombreImagen= $_POST['nombre']._.generateRandomString(5).".jpg";
+		$nombreImagen= "EVNT".$_POST['eventoid']."_".generateRandomString(5).".jpg";
 		$target_path=$target_path.$nombreImagen;
 
 		if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false)
@@ -234,6 +255,13 @@ require_once ("claseEventos.php");
 	}
 	function eliminarEvento(){
 		$evento = new Eventos();
+		$model = new Model();
+		$resultadoEliminar = $model->getEvento_X_EventoID($_POST['ID']);
+
+		while($row = mysqli_fetch_assoc($resultadoEliminar)) {
+			unlink("../vistas/imagenes/".$row["Imagen"]);
+		}
+
 		$resultado = $evento->eliminarEvento($_POST['ID']);
 		echo $resultado;
 	}
@@ -244,6 +272,13 @@ require_once ("claseEventos.php");
 	}
 	function eliminarFoto(){
 		$model = new Model();
+
+		$resultadoEliminar = $model->getFotos_X_AsistenciasFotosID($_POST['ID']);
+
+		while($row = mysqli_fetch_assoc($resultadoEliminar)) {
+			unlink("../vistas/imagenes/".$row["Imagen"]);
+		}
+
 		$resultado = $model->eliminarFoto($_POST['ID']);
 		echo $resultado;
 	}
@@ -310,5 +345,30 @@ require_once ("claseEventos.php");
 		echo json_encode($encode); 
 	}
 	
-	
+	function getInstitucion(){
+		 $model = new Model(); 
+		$result=$model->getInstitucion_X_InstitucionID($_REQUEST['ID']); //usar la funcion designada
+		$encode = array();
+
+		while($row = mysqli_fetch_assoc($result)) {
+		   $encode["Items"][] = $row;
+		}
+
+		echo json_encode($encode); 
+	}
+	function editarInstitucion(){
+		$target_path="../vistas/imagenes/";
+		//$_FILES['uploadedfile']['name']
+		$nombreImagen = "";
+		if(basename($_FILES['uploadedfile']['name']) != ""){
+		$nombreImagen= "INST".$_POST['institucionid']."_".generateRandomString(5).".jpg";
+		$target_path=$target_path.$nombreImagen;
+
+		if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false)
+		echo "There was an error uploading the file, please try again.";
+		}
+		$institucion = new Institucion();
+		$resultado = $institucion->editarInstitucion($_POST['nombre'],$_POST['password'],$nombreImagen,$_POST['institucionid']);
+		echo $resultado;
+	}
 ?>

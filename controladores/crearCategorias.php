@@ -7,16 +7,20 @@
 
 require_once ("../controladores/claseCategorias.php");
 
-$target_path="../vistas/imagenes/";
-
-$target_path=$target_path.basename($_FILES['uploadedfile']['name']);
-
-if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false)
-	echo "There was an error uploading the file, please try again.";
-
-
 $categorias = new Categorias(); // pedir usar el modelo
+	$target_path="../vistas/imagenes/";
+	$result = $categorias->Consecutivo();
+	$jsondecode = json_decode($result,true);
+	$consecutivoid = $jsondecode[0]["Consecutivo"];
+	$consecutivoid++;
+	$RandomString = $categorias->generateRandomString(5);
+	$nombreImagen= "CAT".$consecutivoid."_".$RandomString.".jpg";
+	$target_path=$target_path.$nombreImagen;
 
-$categorias->insertarCategoria($_POST['nombre'],$_FILES['uploadedfile']['name'],$_COOKIE['usuarioid'])
+	if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'],$target_path) == false)
+		echo "There was an error uploading the file, please try again.";
+
+
+$categorias->insertarCategoria($_POST['nombre'],$nombreImagen)
 
 ?>

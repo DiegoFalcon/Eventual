@@ -39,6 +39,34 @@
 
 	  		echo json_encode($encode); 
 		}
+		public function editarInstitucion($nombre,$password,$imagennombre,$institucionid){
 
-	}
+		$result = $this->model->editarInstitucion($nombre,$password,$imagennombre,$institucionid);
+		echo $result;
+		}
+
+		function eliminarEvento($eventoid){
+		$result = $this->model->eliminarEvento($eventoid);
+		return $result;
+		}
+		public function Consecutivo(){
+		$result=$this->model->ConsecutivoInstitucion(); //usar la funcion designada
+  		$encode = array();
+  		while($row = mysqli_fetch_assoc($result)) {
+    	 $encode[] = $row;
+  		}
+
+  		return json_encode($encode); 
+		}
+		function generateRandomString($length = 10) {
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
+		}
+
+		}
 ?>

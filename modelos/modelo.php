@@ -241,6 +241,50 @@ class Model{
 	
 	return $result;
 	}
+	public function ConsecutivoEventos(){
+		//Conexion a la base de datos
+	$conn=new Connection();
+	$query="";
+	$result=NULL;
+	$query = "SELECT MAX(EventosID) as Consecutivo FROM eventos";
+	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
+	$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function ConsecutivoInstitucion(){
+		//Conexion a la base de datos
+	$conn=new Connection();
+	$query="";
+	$result=NULL;
+	$query = "SELECT MAX(InstitucionID) as Consecutivo FROM institucion";
+	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
+	$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function ConsecutivoFotos(){
+		//Conexion a la base de datos
+	$conn=new Connection();
+	$query="";
+	$result=NULL;
+	$query = "SELECT MAX(AsistenciasFotosID) as Consecutivo FROM asistenciasfotos";
+	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
+	$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function ConsecutivoCategorias(){
+		//Conexion a la base de datos
+	$conn=new Connection();
+	$query="";
+	$result=NULL;
+	$query = "SELECT MAX(CategoriasID) as Consecutivo FROM categorias";
+	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
+	$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
 	public function cantidadesEventos($FechaHoraCliente)
 	{
 	//Conexion a la base de datos
@@ -343,7 +387,7 @@ class Model{
 	
 
 	//------FUNCIONES PARA CATEGORIAS----
-	public function insertarCategoria($nombre,$imagenruta,$usuarioid)
+	public function insertarCategoria($nombre,$imagenruta)
 	{
 	//Conexion a la base de datos
 	$conn=new Connection();
@@ -351,7 +395,7 @@ class Model{
 	$result=NULL;
 	
 	//creamos el query
-	$query= "insert into categorias  (Nombre,Imagen,UsuariosID) VALUES ('".$nombre."','".$imagenruta."','".$usuarioid."')";
+	$query= "insert into categorias (Nombre,Imagen) VALUES ('$nombre','$imagenruta')";
 	
 	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
 	$result=$conn->EjecutaQuery($query);
@@ -380,6 +424,64 @@ class Model{
 	$result=NULL;
 	
 	$query="select * from institucion";
+	$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function getInstitucion_X_InstitucionID($InstitucionID){
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
+		$query="SELECT institucion.InstitucionID,institucion.Nombre As NombreInstitucion,institucion.Imagen as Imagen,
+		(SELECT AVG(Calificacion) From asistencias
+		inner join eventos On asistencias.EventosID = eventos.EventosID
+		inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+		where asistencias.Calificacion > 0 and institucion.InstitucionID = '$InstitucionID'
+		) As Rating,
+		(SELECT COUNT(*) From eventos where eventos.InstitucionID='$InstitucionID'
+		) As TotalEventos,
+		(Select Count(*) From asistencias
+		inner join eventos On asistencias.EventosID = eventos.EventosID
+		inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+		where asistencias.Calificacion > 0 and institucion.InstitucionID = '$InstitucionID'
+		) As TotalAsistencias,
+		(Select Count(*) From asistenciasfotos
+		inner join asistencias On asistenciasfotos.AsistenciasID = asistencias.AsistenciasID
+		inner join eventos On asistencias.EventosID = eventos.EventosID
+		inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+		where asistencias.Calificacion > 0 and institucion.InstitucionID = '$InstitucionID'
+		) As TotalFotos,
+		(Select Count(*) From asistenciascomentarios
+		inner join asistencias On asistenciascomentarios.AsistenciasID = asistencias.AsistenciasID
+		inner join eventos On asistencias.EventosID = eventos.EventosID
+		inner join institucion On institucion.InstitucionID = eventos.InstitucionID
+		where asistencias.Calificacion > 0 and institucion.InstitucionID = '$InstitucionID'
+		) As TotalComentarios,
+		institucion.Password as Pass
+		from institucion where institucion.InstitucionID = '$InstitucionID'";
+		$result=$conn->EjecutaQuery($query);
+	
+	return $result;
+	}
+	public function editarInstitucion($Nombre,$password,$imagennombre,$institucionid)
+	{
+	//Conexion a la base de datos
+	$conn=new Connection();
+	$query="";
+	$result=NULL;
+	
+	//creamos el query
+	if($imagennombre!=""){
+	$query= "UPDATE institucion 
+		SET Nombre = '$Nombre', Password = '$password', Imagen = '$imagennombre'
+		WHERE InstitucionID = '$institucionid'";
+	}
+	else{
+		$query= "UPDATE institucion 
+		SET Nombre = '$Nombre', Password = '$password'
+		WHERE InstitucionID = '$institucionid'";
+	}
+	//llamamos el metodo EjecutarQuery de la clase Conexion, enviando la variable $query
 	$result=$conn->EjecutaQuery($query);
 	
 	return $result;
@@ -425,7 +527,7 @@ public function eliminarCategoria($CategoriasID)
 	}
 
 
-	public function insertarUsuario($FacebookUserID,$FBName)
+	public function insertarUsuario($FacebookUserID,$FBName,$GCMID)
 	{
 	//Conexion a la base de datos
 		$conn=new Connection();
@@ -436,14 +538,19 @@ public function eliminarCategoria($CategoriasID)
 		$result=$conn->EjecutaQuery($query);
 
 		if (mysqli_num_rows($result) > 0) {
+			$query = "UPDATE usuarios set Gcm_RegistrationID = '$GCMID' where FacebookID = '$FacebookUserID'";
+			$result=$conn->EjecutaQuery($query);
+
+			$query="SELECT UsuariosID As UserID, FacebookID As FBID, Nombre As FBName, Gcm_RegistrationID As GCMID from usuarios where FacebookID = '$FacebookUserID'";
+			$result=$conn->EjecutaQuery($query);
 		   return $result;//echo $row['column name'];
 		}
 		else
 		{
-			$query= "INSERT INTO usuarios (FacebookID, Nombre) VALUES ('$FacebookUserID', '$FBName')";
+			$query= "INSERT INTO usuarios (FacebookID, Nombre, Gcm_RegistrationID) VALUES ('$FacebookUserID', '$FBName', '$GCMID')";
 			$result=$conn->EjecutaQuery($query);
 
-			$query="SELECT UsuariosID As UserID, FacebookID As FBID, Nombre As FBName from usuarios where FacebookID = '$FacebookUserID'";
+			$query="SELECT UsuariosID As UserID, FacebookID As FBID, Nombre As FBName, Gcm_RegistrationID As GCMID  from usuarios where FacebookID = '$FacebookUserID'";
 			$result=$conn->EjecutaQuery($query);
 			return $result;
 		}
@@ -474,6 +581,8 @@ public function eliminarCategoria($CategoriasID)
 	
 	return $result;
 	}
+
+
 
 	public function eliminarAsistencia($UsuarioID,$EventoID)
 	{
@@ -566,6 +675,41 @@ public function eliminarCategoria($CategoriasID)
 
 		return $result;
 	}
+	public function getGCMID_X_AsistenciasID($AsistenciasID){
+
+		//Conexion a la base de datos
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
+
+		$query= "SELECT usuarios.UsuariosID, usuarios.Gcm_RegistrationID As GCMID 
+			from asistencias
+			inner join usuarios On usuarios.UsuariosID = asistencias.UsuariosID
+			where asistencias.EventosID In(
+					Select EventosID from asistencias
+					where AsistenciasID = '$AsistenciasID'
+				)		
+			group by UsuariosID";
+		$result=$conn->EjecutaQuery($query);
+
+		return $result;
+	}
+	public function getNombreEvento_Y_NombreUsuario_X_AsistenciasID($AsistenciasID){
+		//Conexion a la base de datos
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
+
+		$query= "SELECT eventos.Nombre As NombreEvento, usuarios.UsuariosID,
+				usuarios.Nombre As NombreUsuario, usuarios.Gcm_RegistrationID As GCMID
+				 from eventos
+				inner join asistencias On asistencias.EventosID = eventos.EventosID
+				inner join usuarios on usuarios.UsuariosID = asistencias.UsuariosID
+				where asistencias.AsistenciasID = '$AsistenciasID'";
+		$result=$conn->EjecutaQuery($query);
+
+		return $result;
+	}
 	public function eliminarComentario($asistenciascomentariosid)
 	{
 	//Conexion a la base de datos
@@ -636,5 +780,34 @@ public function eliminarCategoria($CategoriasID)
 
 		return $result;
 	}
+	public function getFotos_X_AsistenciasFotosID($AsistenciasFotosID)
+	{
+	//Conexion a la base de datos
+		$conn=new Connection();
+		$query="";
+		$result=NULL;
+
+		date_default_timezone_set('America/Tijuana');
+		$fechaHora = date("Y-m-d H:i:s");
+
+		$query= "SELECT asistenciasfotos.AsistenciasFotosID, 
+				asistenciasfotos.Imagen, 
+				asistenciasfotos.FechaHora, 
+				asistenciasfotos.AsistenciasID, 
+				usuarios.FacebookID,
+				usuarios.Nombre
+				FROM 
+				asistenciasfotos, asistencias, usuarios 
+				WHERE
+				usuarios.usuariosID = asistencias.usuariosID AND
+				asistenciasfotos.asistenciasID = asistencias.asistenciasID AND 
+				asistenciasfotos.AsistenciasFotosID ='$AsistenciasFotosID'";
+
+		$result=$conn->EjecutaQuery($query);
+
+		return $result;
+	}
+
+
 	
 }

@@ -1,4 +1,4 @@
-<?php
+pe<?php
 
 	require_once ("claseComentarios.php");
 	$comentarios = new Comentarios();

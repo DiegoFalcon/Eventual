@@ -30,8 +30,8 @@
 				//usar la funcion designada
 		}
 
-		public function insertarUsuarioJSON($FacebookUserID){
-			$result=$this->model->insertarUsuario($FacebookUserID); //usar la funcion designada
+		public function insertarUsuarioJSON($FacebookUserID,$FBName,$GCMID){
+			$result=$this->model->insertarUsuario($FacebookUserID,$FBName,$GCMID); //usar la funcion designada
 	  		$encode = array();
 
 	  		while($row = mysqli_fetch_assoc($result)) {

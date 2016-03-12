@@ -1,6 +1,6 @@
 <?php
 	require_once ("../modelos/modelo.php");
-
+	require_once("claseGCM.php");
 	class Comentarios{
 		public $model;  
 		public function __construct()    
@@ -10,12 +10,38 @@
          
 
 		public function insertarComentarioJSON($AsistenciasID, $Comentario){
-			$result=$this->model->insertarComentario($AsistenciasID, $Comentario); //usar la funcion designada
-	  		$encode = array();
 
+			$nombreEvento = "";
+			$nombreUsuario = "";
+			$GCMID = "";
+			$usuarioComentaID = -1;
+			$result = $this->model->getNombreEvento_Y_NombreUsuario_X_AsistenciasID($AsistenciasID);
+			while($row = mysqli_fetch_assoc($result)) {
+	    	 $nombreEvento = $row["NombreEvento"];
+	    	 $nombreUsuario = $row["NombreUsuario"];
+	    	 $GCMID = $row["GCMID"];
+	    	 $usuarioComentaID = $row["UsuariosID"];
+	  		}
+
+			$encode = array();
+			$result = $this->model->getGCMID_X_AsistenciasID($AsistenciasID);
+			while($row = mysqli_fetch_assoc($result)) {
+				if($usuarioComentaID != $row["UsuariosID"])
+	    	 		$encode[] = $row["GCMID"];
+	  		}
+	  		
+	  		$message = $nombreUsuario." comento en el evento ".$nombreEvento.". ".$Comentario;
+	  		$mensaje = array();
+	  		$mensaje["message"] = $message;
+	  		$gcm = new GCM();
+	  		$gcm->send_notification($encode,$mensaje);
+			$result=$this->model->insertarComentario($AsistenciasID, $Comentario); //usar la funcion designada
+			$encode = array();
 	  		while($row = mysqli_fetch_assoc($result)) {
 	    	 $encode[] = $row;
+
 	  		}
+
 
 	  		echo json_encode($encode); 
 		}
@@ -70,8 +96,8 @@
 			return $diferenciaString;
 		}
 
-		$diaPasado = date('N', strtotime($fechaPasada));
-		$diaActual = date('N', strtotime($fechaActual));
+		$diaPasado = date('j', strtotime($fechaPasada));
+		$diaActual = date('j', strtotime($fechaActual));
 		$diferencia = $this->diferencia($diaPasado,$diaActual);
 		if($diferencia!=0){
 			if($diferencia > 1)
